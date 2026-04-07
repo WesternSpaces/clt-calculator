@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Could You Own a Home in Chaffee County?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #FAFAFA;
+            color: #1A1A1A;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 1.7em;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+
+        .subtitle {
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        /* Progress bar */
+        .progress {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 28px;
+        }
+
+        .progress-dot {
+            flex: 1;
+            height: 4px;
+            border-radius: 2px;
+            background: #DEE2E6;
+            transition: background 0.4s;
+        }
+
+        .progress-dot.active {
+            background: #2D6A4F;
+        }
+
+        .progress-dot.done {
+            background: #2D6A4F;
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-question {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1A1A1A;
+        }
+
+        .step-context {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .step-card {
+            background: #FFFFFF;
+            padding: 24px;
+            border-radius: 10px;
+            border: 1px solid #E0E0E0;
+            margin-bottom: 20px;
+        }
+
+        /* Slider styling */
+        .slider-group {
+            margin: 4px 0 8px;
+        }
+
+        .slider-display {
+            text-align: center;
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #2D6A4F;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .slider-markers {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75em;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 4px;
+            background: #DEE2E6;
+            outline: none;
+            margin: 8px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2D6A4F;
+            cursor: pointer;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2D6A4F;
+            cursor: pointer;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Home options */
+        .home-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .home-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            background: #FFFFFF;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            font-family: inherit;
+            font-size: 1em;
+            text-align: left;
+            width: 100%;
+        }
+
+        .home-option:hover {
+            border-color: #2D6A4F;
+            background: #FCFEFA;
+        }
+
+        .home-option.active {
+            border-color: #2D6A4F;
+            background: #F0F7F4;
+        }
+
+        .home-option .bedrooms {
+            font-weight: 700;
+        }
+
+        .home-option .price {
+            font-weight: 700;
+            color: #2D6A4F;
+            font-size: 1.1em;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #2D6A4F;
+            color: #FFFFFF;
+        }
+
+        .btn-primary:hover {
+            background: #245A42;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #888;
+            padding: 14px 16px;
+        }
+
+        .btn-back:hover {
+            color: #555;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .btn-row.first {
+            justify-content: flex-end;
+        }
+
+        /* Reveal card — step 4 monthly cost preview */
+        .reveal-number {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .reveal-label {
+            font-size: 0.85em;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+
+        .reveal-value {
+            font-size: 2.8em;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .reveal-value.green {
+            color: #2D6A4F;
+        }
+
+        .reveal-value.gray {
+            color: #6C757D;
+        }
+
+        .reveal-value.terracotta, .terracotta {
+            color: #E07A5F;
+        }
+
+        .reveal-detail {
+            font-size: 0.88em;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .vs-divider {
+            text-align: center;
+            font-size: 0.85em;
+            font-weight: 700;
+            color: #CCC;
+            padding: 12px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Cost breakdown */
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            font-size: 0.88em;
+            color: #666;
+        }
+
+        .cost-row.total {
+            border-top: 2px solid #E8E8E8;
+            margin-top: 6px;
+            padding-top: 8px;
+            font-weight: 700;
+            font-size: 1em;
+            color: #1A1A1A;
+        }
+
+        /* Results — step 5 */
+        .result-card {
+            background: #FFFFFF;
+            border-radius: 10px;
+            border: 1px solid #E0E0E0;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .result-card.highlight {
+            border: 2px solid #E07A5F;
+        }
+
+        .result-card h3 {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .equity-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .equity-row .label {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .equity-row .value {
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        .renter-status {
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-top: 12px;
+        }
+
+        .renter-status.cannot-buy {
+            background: #FFF3F0;
+            border: 1px solid #E07A5F;
+            color: #8B3A2A;
+        }
+
+        .renter-status.can-buy {
+            background: #F0F7F4;
+            border: 1px solid #2D6A4F;
+            color: #1A4A35;
+        }
+
+        /* Chart */
+        .chart-container {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .chart-container h3 {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 260px;
+            display: block;
+        }
+
+        /* Assumptions */
+        .assumptions-toggle {
+            background: transparent;
+            border: 1px solid #DDD;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            color: #888;
+            font-family: inherit;
+            width: 100%;
+            text-align: left;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+        }
+
+        .assumptions-toggle:hover {
+            border-color: #999;
+            color: #555;
+        }
+
+        .assumptions-panel {
+            display: none;
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .assumptions-panel h3 {
+            font-size: 0.95em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-top: 16px;
+            color: #1A1A1A;
+        }
+
+        .assumptions-panel h3:first-child {
+            margin-top: 0;
+        }
+
+        .explainer {
+            padding: 12px;
+            background: #F0F7F4;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 0.85em;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .explainer strong {
+            color: #2D6A4F;
+        }
+
+        .assumption-list {
+            font-size: 0.85em;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0 8px;
+            font-size: 0.82em;
+            color: #888;
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: #2D6A4F;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            font-size: 0.78em;
+            color: #AAA;
+            font-style: italic;
+            margin-top: 8px;
+        }
+
+        /* Start over link */
+        .start-over {
+            text-align: center;
+            margin-top: 12px;
+            margin-bottom: 8px;
+        }
+
+        .start-over a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.88em;
+            cursor: pointer;
+        }
+
+        .start-over a:hover {
+            color: #555;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 14px 32px;
+            }
+
+            h1 {
+                font-size: 1.4em;
+            }
+
+            .slider-display {
+                font-size: 1.8em;
+            }
+
+            .reveal-value {
+                font-size: 2.2em;
+            }
+
+            canvas {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div style="display: inline-block; background: #E07A5F; color: #FFF; font-size: 0.7em; font-weight: 700; padding: 3px 10px; border-radius: 4px; letter-spacing: 0.05em; margin-bottom: 8px;">DRAFT</div>
+            <h1>Could You Own a Home in Chaffee County?</h1>
+            <p class="subtitle">Walk through the numbers. It takes two minutes.</p>
+        </header>
+
+        <div class="progress">
+            <div class="progress-dot active" id="dot1"></div>
+            <div class="progress-dot" id="dot2"></div>
+            <div class="progress-dot" id="dot3"></div>
+            <div class="progress-dot" id="dot4"></div>
+            <div class="progress-dot" id="dot5"></div>
+        </div>
+
+        <!-- STEP 1: Income + household size -->
+        <div class="step active" id="step1">
+            <div class="step-question">Tell us about your household</div>
+            <div class="step-context">
+                Your combined gross income before taxes.
+            </div>
+            <div class="step-card">
+                <div class="slider-group">
+                    <label style="font-weight: 600; font-size: 0.9em;">What does your household earn per year?</label>
+                    <div class="slider-display" id="s1IncomeDisplay">$66,000</div>
+                    <input type="range" id="s1Income" min="40000" max="120000" step="1000" value="66000">
+                    <div class="slider-markers">
+                        <span>$40K</span>
+                        <span>$120K</span>
+                    </div>
+                </div>
+            </div>
+            <div class="step-card">
+                <div style="display: flex; gap: 16px; align-items: flex-start; flex-wrap: wrap;">
+                    <div style="min-width: 140px;">
+                        <label for="s1HHSize" style="font-weight: 600; font-size: 0.9em; display: block; margin-bottom: 6px;">Household size</label>
+                        <select id="s1HHSize" style="width: 100%; padding: 10px 12px; border: 2px solid #E0E0E0; border-radius: 6px; font-family: inherit; font-size: 1em; background: #FFF; color: #1A1A1A; cursor: pointer; appearance: auto;">
+                            <option value="1">1 person</option>
+                            <option value="2" selected>2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4">4 people</option>
+                            <option value="5">5 people</option>
+                            <option value="6">6+ people</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 180px; padding-top: 2px;">
+                        <div style="font-size: 0.82em; color: #888; margin-bottom: 4px;">For reference — CLT homes are marketed by AMI level</div>
+                        <div id="s1AmiRef" style="font-size: 0.88em; color: #555; line-height: 1.6;">
+                            80% AMI = $65,840 &nbsp;/&nbsp; 100% AMI = $82,300
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-row first">
+                <button class="btn btn-primary" onclick="goTo(2)">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 2: Rent -->
+        <div class="step" id="step2">
+            <div class="step-question">What do you pay in rent?</div>
+            <div class="step-context">
+                The average rent in Chaffee County is about $1,640 per month. If you share housing or have a below-market deal, adjust down.
+            </div>
+            <div class="step-card">
+                <div class="slider-group">
+                    <div class="slider-display" id="s2RentDisplay">$1,638/mo</div>
+                    <input type="range" id="s2Rent" min="800" max="2500" step="25" value="1638">
+                    <div class="slider-markers">
+                        <span>$800</span>
+                        <span>$1,638 avg</span>
+                        <span>$2,500</span>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goTo(1)">Back</button>
+                <button class="btn btn-primary" onclick="goTo(3)">Next</button>
+            </div>
+        </div>
+
+        <!-- STEP 3: Home selection -->
+        <div class="step" id="step3">
+            <div class="step-question">Pick a deed-restricted home</div>
+            <div class="step-context">
+                These are community land trust homes. You own the home and lease the land for $25 per month, which is what makes the price so much lower than market rate.
+            </div>
+            <div class="step-card">
+                <div class="home-options">
+                    <button class="home-option active" data-price="280000" onclick="selectHome(this)">
+                        <span class="bedrooms">1 bedroom</span>
+                        <span class="price">$280,000</span>
+                    </button>
+                    <button class="home-option" data-price="350000" onclick="selectHome(this)">
+                        <span class="bedrooms">2 bedroom</span>
+                        <span class="price">$350,000</span>
+                    </button>
+                    <button class="home-option" data-price="400000" onclick="selectHome(this)">
+                        <span class="bedrooms">3 bedroom</span>
+                        <span class="price">$400,000</span>
+                    </button>
+                </div>
+            </div>
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goTo(2)">Back</button>
+                <button class="btn btn-primary" onclick="goTo(4)">See the comparison</button>
+            </div>
+        </div>
+
+        <!-- STEP 4: Monthly cost reveal -->
+        <div class="step" id="step4">
+            <div class="step-question">Here's what it costs each month</div>
+            <div class="step-context" id="s4Context">
+                Buying a deed-restricted home today vs. continuing to rent.
+            </div>
+
+            <div class="step-card">
+                <div class="reveal-number">
+                    <div class="reveal-label">If you buy the CLT home</div>
+                    <div class="reveal-value green" id="s4CltMonthly">$2,089/mo</div>
+                </div>
+                <div class="cost-row"><span>Principal &amp; interest</span><span id="s4PI">$1,699</span></div>
+                <div class="cost-row"><span>Ground lease</span><span>$25</span></div>
+                <div class="cost-row"><span>HOA (est.)</span><span>$200</span></div>
+                <div class="cost-row"><span>Tax &amp; insurance</span><span>$165</span></div>
+                <div class="cost-row total"><span>Monthly cost</span><span id="s4CltTotal">$2,089</span></div>
+
+                <div class="vs-divider">vs.</div>
+
+                <div class="reveal-number">
+                    <div class="reveal-label">If you keep renting</div>
+                    <div class="reveal-value gray" id="s4Rent">$1,638/mo</div>
+                    <div class="reveal-detail" id="s4RentRise">Rising to about $2,201 in 10 years</div>
+                </div>
+            </div>
+
+            <div class="step-card" id="s4Affordability">
+                <div class="reveal-number">
+                    <div class="reveal-label">The CLT home costs</div>
+                    <div class="reveal-value green" id="s4PctIncome">38%</div>
+                    <div class="reveal-detail">of your gross income</div>
+                </div>
+            </div>
+
+            <div class="renter-status cannot-buy" id="s4QualWarning" style="display: none;">
+                Housing costs exceed 35% of your gross income — the maximum allowed under deed-restricted program guidelines. At this price, you may need a smaller unit or down payment assistance to qualify.
+            </div>
+
+            <div class="step-context" style="text-align: center; margin-top: 4px;" id="s4EquityTease">
+                The CLT home costs more per month than rent — but you are <strong>building equity</strong> with every payment. What does that add up to?
+            </div>
+
+            <div class="btn-row">
+                <button class="btn btn-back" onclick="goTo(3)">Back</button>
+                <button class="btn btn-primary" onclick="goTo(5)">Show me the equity</button>
+            </div>
+        </div>
+
+        <!-- STEP 5: Full results -->
+        <div class="step" id="step5">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+                <div class="step-question" style="margin-bottom: 0;">The full picture</div>
+                <button class="btn btn-back" onclick="goTo(1)" style="padding: 6px 12px; font-size: 0.85em;">Adjust inputs</button>
+            </div>
+            <div class="step-context">
+                After <strong><span id="s5Years">10</span> years</strong>, here is where each path leaves you.
+            </div>
+
+            <!-- Gap banner -->
+            <div class="result-card highlight">
+                <div class="reveal-number">
+                    <div class="reveal-label">The CLT buyer is</div>
+                    <div class="reveal-value terracotta" id="s5Gap">$52,800 ahead</div>
+                    <div class="reveal-detail" id="s5GapDetail">The CLT buyer owns a home with equity. The renter paid rent with no ownership stake.</div>
+                </div>
+            </div>
+
+            <!-- CLT result -->
+            <div class="result-card">
+                <h3>Buy a CLT home now</h3>
+                <div class="equity-row">
+                    <span class="label">Mortgage paydown</span>
+                    <span class="value" id="s5PrincPaid" style="color: #2D6A4F;">$37,500</span>
+                </div>
+                <div class="equity-row">
+                    <span class="label">25% appreciation share</span>
+                    <span class="value" id="s5ApprecShare" style="color: #2D6A4F;">$15,300</span>
+                </div>
+                <div class="equity-row">
+                    <span class="label">Down payment</span>
+                    <span class="value" id="s5DownPayment" style="color: #2D6A4F;">$11,200</span>
+                </div>
+                <div class="equity-row" style="border-top: 2px solid #E8E8E8; margin-top: 8px; padding-top: 8px;">
+                    <span class="label" style="font-weight: 700; color: #1A1A1A;">Total equity</span>
+                    <span class="value" id="s5CltEquity" style="color: #2D6A4F; font-size: 1.2em;">$64,000</span>
+                </div>
+                <div style="margin-top: 10px; font-size: 0.88em; color: #2D6A4F; font-weight: 600;">
+                    That equity is yours — it could serve as a down payment on a market-rate home if you choose to sell.
+                </div>
+            </div>
+
+            <!-- Renter result -->
+            <div class="result-card">
+                <h3>Keep renting, save for market rate</h3>
+                <div class="equity-row">
+                    <span class="label">Total rent paid</span>
+                    <span class="value" id="s5TotalRent" style="color: #6C757D;">$225,700</span>
+                </div>
+                <div class="equity-row">
+                    <span class="label">Savings accumulated</span>
+                    <span class="value" id="s5Savings" style="color: #6C757D;">$0</span>
+                </div>
+                <div class="equity-row" style="border-top: 2px solid #E8E8E8; margin-top: 8px; padding-top: 8px;">
+                    <span class="label" style="font-weight: 700; color: #1A1A1A;">Home equity</span>
+                    <span class="value" id="s5RenterEquity" style="color: #6C757D; font-size: 1.2em;">$0</span>
+                </div>
+                <div class="renter-status cannot-buy" id="s5RenterStatus">
+                    After 10 years, the market-rate home costs $948,000. At your income, you cannot qualify.
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="chart-container">
+                <h3>Equity over time</h3>
+                <canvas id="equityChart"></canvas>
+            </div>
+
+            <!-- Time horizon slider -->
+            <div class="step-card">
+                <div style="font-weight: 600; font-size: 0.9em; margin-bottom: 8px;">Adjust time horizon</div>
+                <div class="slider-group">
+                    <div class="slider-display" id="s5YearsDisplay" style="font-size: 1.4em;">10 years</div>
+                    <input type="range" id="s5YearsSlider" min="5" max="30" step="1" value="10">
+                    <div class="slider-markers">
+                        <span>5 years</span>
+                        <span>15</span>
+                        <span>30 years</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assumptions -->
+            <button class="assumptions-toggle" onclick="toggleAssumptions()">
+                How this works, assumptions, and data sources &#9662;
+            </button>
+
+            <div class="assumptions-panel" id="assumptionsPanel">
+                <div class="explainer">
+                    <strong>What is a community land trust?</strong> You own the home but lease the land from a nonprofit trust for $25 per month. The 99-year lease is renewable and inheritable. Separating land from the home is what makes the price affordable.
+                </div>
+                <div class="explainer">
+                    <strong>What about when you sell?</strong> The home is appraised at current market value. You keep 25% of the appreciation since you bought it, plus all the equity from paying down your mortgage. The trust retains 75% of appreciation to keep the next sale affordable. A lower purchase price today, in exchange for sharing the upside later.
+                </div>
+
+                <h3>Assumptions</h3>
+                <div class="assumption-list">
+                    Mortgage rate: 6.5% (30-year fixed; CHFA may offer lower)<br>
+                    Down payment: 4% of purchase price<br>
+                    HOA/COA dues: $200/month (estimate — actual fees vary by development)<br>
+                    Home appreciation: 3% per year (estimate — actual share based on appraised value at sale)<br>
+                    Market-rate home appreciation: 4% per year<br>
+                    Rent increases: 3% per year<br>
+                    Savings interest: 4.5% APY (high-yield savings)<br>
+                    Non-housing expenses: 55% of income<br>
+                    Qualifying ratio: 35% of gross income<br>
+                    Market-rate median: $640,000 (Chaffee County condo/townhome)
+                </div>
+
+                <h3>Data sources</h3>
+                <div class="assumption-list">
+                    HUD 2025 income limits, Chaffee County (2-person household)<br>
+                    Colorado Association of Realtors, Sept 2025 YTD<br>
+                    Hello Data rental analytics, 2025<br>
+                    Chaffee Housing Trust program terms
+                </div>
+            </div>
+
+            <div class="start-over">
+                <a onclick="goTo(1)">Start over with different numbers</a>
+            </div>
+
+            <footer>
+                <a href="https://www.chaffeehousing.org/listings">Learn about CLT homeownership opportunities</a><br>
+                Questions? <a href="https://www.chaffeehousingauthority.org">Chaffee Housing Authority</a>
+                <div class="disclaimer">
+                    This calculator is for illustration only and is not a qualification determination. Actual costs depend on credit history, interest rates at time of purchase, and program terms. Contact the Chaffee Housing Trust for current pricing and to determine eligibility.
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // --- Constants ---
+        const GROUND_LEASE = 25;
+        const HOA = 200;
+        const TAX_INSURANCE = 165;
+        const DOWN_PAYMENT_PCT = 0.04;
+        const MORTGAGE_RATE = 0.065;
+        const MORTGAGE_TERM = 30;
+        const CLT_APPRECIATION = 0.03;
+        const RESALE_SHARE = 0.25;
+        const MARKET_PRICE = 640000;
+        const MARKET_APPRECIATION = 0.04;
+        const RENT_INFLATION = 0.03;
+        const SAVINGS_RATE = 0.045;
+        const NON_HOUSING_PCT = 0.55;
+        const QUALIFYING_RATIO = 0.35;
+
+        // --- HUD 2025 AMI limits for Chaffee County by household size ---
+        const AMI_LIMITS = {
+            1: [57600, 72000],
+            2: [65840, 82300],
+            3: [74080, 92600],
+            4: [82240, 102800],
+            5: [88880, 111100],
+            6: [95440, 119300]
+        };
+
+        // --- State ---
+        let selectedPrice = 280000;
+        let currentStep = 1;
+
+        // --- Utility ---
+        function fmt(n) {
+            return '$' + Math.round(n).toLocaleString('en-US');
+        }
+
+        function fmtK(n) {
+            if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return '$' + Math.round(n / 1000).toLocaleString('en-US') + 'K';
+            return fmt(n);
+        }
+
+        // --- Mortgage math ---
+        function monthlyPayment(principal, annualRate, termYears) {
+            const r = annualRate / 12;
+            const n = termYears * 12;
+            if (r === 0) return principal / n;
+            return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+        }
+
+        function principalPaidByYear(principal, annualRate, termYears, year) {
+            const r = annualRate / 12;
+            const n = termYears * 12;
+            const payment = monthlyPayment(principal, annualRate, termYears);
+            let balance = principal;
+            for (let m = 0; m < year * 12 && m < n; m++) {
+                const interest = balance * r;
+                balance -= (payment - interest);
+            }
+            return principal - Math.max(balance, 0);
+        }
+
+        // --- CLT scenario ---
+        function calcCLT(purchasePrice, years) {
+            const downPayment = purchasePrice * DOWN_PAYMENT_PCT;
+            const loanAmount = purchasePrice - downPayment;
+            const pi = monthlyPayment(loanAmount, MORTGAGE_RATE, MORTGAGE_TERM);
+            const monthlyCost = pi + GROUND_LEASE + HOA + TAX_INSURANCE;
+
+            const equityByYear = [];
+            for (let y = 0; y <= years; y++) {
+                const princPaid = principalPaidByYear(loanAmount, MORTGAGE_RATE, MORTGAGE_TERM, y);
+                const homeValue = purchasePrice * Math.pow(1 + CLT_APPRECIATION, y);
+                const appreciation = homeValue - purchasePrice;
+                const ownerShare = appreciation * RESALE_SHARE;
+                equityByYear.push({
+                    year: y,
+                    principalPaid: princPaid,
+                    appreciationShare: ownerShare,
+                    totalEquity: princPaid + ownerShare + downPayment
+                });
+            }
+
+            return { pi, monthlyCost, downPayment, loanAmount, equityByYear };
+        }
+
+        // --- Renter scenario ---
+        function calcRenter(monthlyRent, income, years) {
+            const monthlyIncome = income / 12;
+            const nonHousingExpenses = monthlyIncome * NON_HOUSING_PCT;
+            const maxHousingPayment = monthlyIncome * QUALIFYING_RATIO;
+
+            let savings = 0;
+            let totalRentPaid = 0;
+            let purchaseYear = null;
+            let renterEquity = 0;
+            let renterMonthlyCost = 0;
+            const savingsByYear = [];
+
+            for (let y = 0; y <= years; y++) {
+                if (y === 0) {
+                    savingsByYear.push(0);
+                    continue;
+                }
+
+                if (purchaseYear !== null) {
+                    const marketPurchasePrice = MARKET_PRICE * Math.pow(1 + MARKET_APPRECIATION, purchaseYear);
+                    const marketDown = savings;
+                    const marketLoan = marketPurchasePrice - marketDown;
+                    const princPaid = principalPaidByYear(marketLoan, MORTGAGE_RATE, MORTGAGE_TERM, y - purchaseYear);
+                    const currentMarketValue = marketPurchasePrice * Math.pow(1 + MARKET_APPRECIATION, y - purchaseYear);
+                    const marketAppreciation = currentMarketValue - marketPurchasePrice;
+                    renterEquity = marketDown + princPaid + marketAppreciation;
+                    renterMonthlyCost = monthlyPayment(marketLoan, MORTGAGE_RATE, MORTGAGE_TERM) + TAX_INSURANCE + 200;
+                    savingsByYear.push(renterEquity);
+                    continue;
+                }
+
+                const prevRent = monthlyRent * Math.pow(1 + RENT_INFLATION, y - 1);
+                totalRentPaid += prevRent * 12;
+                const availableToSave = Math.max(0, monthlyIncome - nonHousingExpenses - prevRent);
+                savings = savings * (1 + SAVINGS_RATE) + availableToSave * 12;
+
+                const currentMarketPrice = MARKET_PRICE * Math.pow(1 + MARKET_APPRECIATION, y);
+
+                let canBuy = false;
+                let downUsed = 0;
+                for (const dp of [0.20, 0.10, 0.05]) {
+                    const downNeeded = currentMarketPrice * dp;
+                    if (savings >= downNeeded) {
+                        const loanNeeded = currentMarketPrice - downNeeded;
+                        const payment = monthlyPayment(loanNeeded, MORTGAGE_RATE, MORTGAGE_TERM) + TAX_INSURANCE + 200;
+                        if (payment <= maxHousingPayment) {
+                            canBuy = true;
+                            downUsed = downNeeded;
+                            break;
+                        }
+                    }
+                }
+
+                if (canBuy) {
+                    purchaseYear = y;
+                    renterMonthlyCost = monthlyPayment(currentMarketPrice - downUsed, MORTGAGE_RATE, MORTGAGE_TERM) + TAX_INSURANCE + 200;
+                    renterEquity = downUsed;
+                    savingsByYear.push(renterEquity);
+                } else {
+                    savingsByYear.push(savings);
+                }
+            }
+
+            return {
+                totalRentPaid,
+                savings,
+                purchaseYear,
+                renterEquity,
+                renterMonthlyCost,
+                savingsByYear,
+                finalRent: monthlyRent * Math.pow(1 + RENT_INFLATION, years - 1),
+                finalMarketPrice: MARKET_PRICE * Math.pow(1 + MARKET_APPRECIATION, years),
+                maxHousingPayment
+            };
+        }
+
+        // --- Chart ---
+        function drawChart(cltEquityByYear, renterSavingsByYear, years) {
+            const canvas = document.getElementById('equityChart');
+            if (!canvas) return;
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            if (rect.width === 0) return;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            const W = rect.width;
+            const H = rect.height;
+
+            ctx.clearRect(0, 0, W, H);
+
+            const ml = 60, mr = 20, mt = 16, mb = 32;
+            const pw = W - ml - mr;
+            const ph = H - mt - mb;
+
+            const cltData = cltEquityByYear.map(d => d.totalEquity);
+            const renterData = renterSavingsByYear;
+            const maxVal = Math.max(...cltData, ...renterData, 1000);
+            const minVal = Math.min(0, ...renterData);
+            const range = maxVal - minVal || 1;
+
+            function x(i) { return ml + (i / years) * pw; }
+            function y(v) { return mt + ph - ((v - minVal) / range) * ph; }
+
+            // Y ticks
+            ctx.strokeStyle = '#E8E8E8';
+            ctx.lineWidth = 0.5;
+            ctx.fillStyle = '#999';
+            ctx.font = '10px -apple-system, sans-serif';
+            ctx.textAlign = 'right';
+            for (let i = 0; i <= 4; i++) {
+                const val = minVal + (range * i / 4);
+                ctx.beginPath();
+                ctx.moveTo(ml, y(val));
+                ctx.lineTo(ml + pw, y(val));
+                ctx.stroke();
+                ctx.fillText(fmtK(val), ml - 6, y(val) + 3);
+            }
+
+            // X labels
+            ctx.textAlign = 'center';
+            const xStep = years <= 10 ? 2 : 5;
+            for (let i = 0; i <= years; i += xStep) {
+                ctx.fillText('Yr ' + i, x(i), H - mb + 16);
+            }
+
+            // Fill
+            ctx.beginPath();
+            ctx.moveTo(x(0), y(cltData[0]));
+            for (let i = 1; i <= years; i++) ctx.lineTo(x(i), y(cltData[i]));
+            for (let i = years; i >= 0; i--) ctx.lineTo(x(i), y(renterData[i]));
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(224, 122, 95, 0.1)';
+            ctx.fill();
+
+            // CLT line
+            ctx.beginPath();
+            ctx.moveTo(x(0), y(cltData[0]));
+            for (let i = 1; i <= years; i++) ctx.lineTo(x(i), y(cltData[i]));
+            ctx.strokeStyle = '#2D6A4F';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Renter line
+            ctx.beginPath();
+            ctx.moveTo(x(0), y(renterData[0]));
+            for (let i = 1; i <= years; i++) ctx.lineTo(x(i), y(renterData[i]));
+            ctx.strokeStyle = '#6C757D';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([5, 4]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Labels
+            ctx.font = 'bold 11px -apple-system, sans-serif';
+            ctx.fillStyle = '#2D6A4F';
+            ctx.textAlign = 'left';
+            ctx.fillText('CLT buyer: ' + fmt(cltData[years]), x(years) - pw * 0.38, y(cltData[years]) - 8);
+            ctx.fillStyle = '#6C757D';
+            const rY = y(renterData[years]);
+            const cY = y(cltData[years]);
+            const offset = Math.abs(cY - rY) < 18 ? 18 : 0;
+            ctx.fillText('Renter: ' + fmt(renterData[years]), x(years) - pw * 0.38, rY + 14 + offset);
+        }
+
+        // --- Navigation ---
+        function goTo(step) {
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+
+            document.querySelectorAll('.progress-dot').forEach((d, i) => {
+                d.classList.remove('active', 'done');
+                if (i + 1 < step) d.classList.add('done');
+                if (i + 1 === step) d.classList.add('active');
+            });
+
+            currentStep = step;
+
+            if (step === 4) updateStep4();
+            if (step === 5) updateStep5();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- Home selection ---
+        function selectHome(el) {
+            document.querySelectorAll('.home-option').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            selectedPrice = parseInt(el.dataset.price);
+        }
+
+        // --- Update AMI reference ---
+        function updateAMIMarkers() {
+            const hhSize = parseInt(document.getElementById('s1HHSize').value);
+            const limits = AMI_LIMITS[hhSize];
+            document.getElementById('s1AmiRef').innerHTML =
+                '80% AMI = ' + fmt(limits[0]) + ' &nbsp;/&nbsp; 100% AMI = ' + fmt(limits[1]);
+        }
+
+        // --- Step 4: Monthly cost reveal ---
+        function updateStep4() {
+            const income = parseInt(document.getElementById('s1Income').value);
+            const rent = parseInt(document.getElementById('s2Rent').value);
+
+            const clt = calcCLT(selectedPrice, 10);
+
+            document.getElementById('s4CltMonthly').textContent = fmt(clt.monthlyCost) + '/mo';
+            document.getElementById('s4PI').textContent = fmt(clt.pi);
+            document.getElementById('s4CltTotal').textContent = fmt(clt.monthlyCost);
+            document.getElementById('s4Rent').textContent = fmt(rent) + '/mo';
+
+            const rentIn10 = rent * Math.pow(1 + RENT_INFLATION, 9);
+            document.getElementById('s4RentRise').textContent = 'Rising to about ' + fmt(rentIn10) + ' in 10 years';
+
+            const pctIncome = Math.round((clt.monthlyCost / (income / 12)) * 100);
+            document.getElementById('s4PctIncome').textContent = pctIncome + '%';
+
+            // Qualification guidance (35% DOH guideline)
+            const maxAllowed = income * QUALIFYING_RATIO / 12;
+            const costRatio = clt.monthlyCost / (income / 12);
+            const qualWarning = document.getElementById('s4QualWarning');
+            const pctEl = document.getElementById('s4PctIncome');
+            if (costRatio > 0.38) {
+                qualWarning.style.display = 'block';
+                qualWarning.className = 'renter-status cannot-buy';
+                qualWarning.textContent = 'At ' + fmt(income) + ' per year, housing costs would be ' +
+                    (costRatio * 100).toFixed(1) + '% of gross income — above program guidelines. ' +
+                    'Consider a smaller unit, or contact the Chaffee Housing Trust to discuss your options.';
+                pctEl.textContent = (costRatio * 100).toFixed(1) + '%';
+                pctEl.classList.remove('green');
+                pctEl.classList.add('terracotta');
+            } else if (costRatio > 0.35) {
+                qualWarning.style.display = 'block';
+                qualWarning.className = 'renter-status can-buy';
+                qualWarning.textContent = 'Your housing costs are near the 35% program guideline. A lender or the ' +
+                    'Chaffee Housing Trust can help determine whether you qualify — down payment assistance or ' +
+                    'other programs may help.';
+                pctEl.textContent = (costRatio * 100).toFixed(1) + '%';
+                pctEl.classList.remove('terracotta');
+                pctEl.classList.add('green');
+            } else {
+                qualWarning.style.display = 'none';
+                pctEl.textContent = pctIncome + '%';
+                pctEl.classList.remove('terracotta');
+                pctEl.classList.add('green');
+            }
+        }
+
+        // --- Step 5: Full results ---
+        function updateStep5() {
+            const income = parseInt(document.getElementById('s1Income').value);
+            const rent = parseInt(document.getElementById('s2Rent').value);
+            const years = parseInt(document.getElementById('s5YearsSlider').value);
+
+            document.getElementById('s5YearsDisplay').textContent = years + ' years';
+            document.getElementById('s5Years').textContent = years;
+
+            const clt = calcCLT(selectedPrice, years);
+            const renter = calcRenter(rent, income, years);
+
+            const eq = clt.equityByYear[years];
+            document.getElementById('s5PrincPaid').textContent = fmt(eq.principalPaid);
+            document.getElementById('s5ApprecShare').textContent = fmt(eq.appreciationShare);
+            document.getElementById('s5DownPayment').textContent = fmt(clt.downPayment);
+            document.getElementById('s5CltEquity').textContent = fmt(eq.totalEquity);
+
+            document.getElementById('s5TotalRent').textContent = fmt(renter.totalRentPaid);
+            document.getElementById('s5Savings').textContent = fmt(renter.savings);
+
+            const statusEl = document.getElementById('s5RenterStatus');
+            if (renter.purchaseYear !== null) {
+                document.getElementById('s5RenterEquity').textContent = fmt(renter.renterEquity);
+                document.getElementById('s5RenterEquity').style.color = '#2D6A4F';
+                statusEl.className = 'renter-status can-buy';
+                statusEl.textContent = 'Purchased a market-rate home in year ' + renter.purchaseYear +
+                    ' at ' + fmt(MARKET_PRICE * Math.pow(1 + MARKET_APPRECIATION, renter.purchaseYear)) +
+                    '. Monthly cost: ' + fmt(renter.renterMonthlyCost) + '.';
+            } else {
+                document.getElementById('s5RenterEquity').textContent = '$0';
+                document.getElementById('s5RenterEquity').style.color = '#6C757D';
+                statusEl.className = 'renter-status cannot-buy';
+
+                const futurePrice = renter.finalMarketPrice;
+                const neededDown20 = futurePrice * 0.20;
+
+                if (renter.savings < neededDown20) {
+                    statusEl.textContent = 'After ' + years + ' years, the market-rate home costs ' + fmt(futurePrice) +
+                        '. You would need ' + fmt(neededDown20) + ' for 20% down — your savings reach ' + fmt(renter.savings) + '.';
+                } else {
+                    const loanAt20 = futurePrice - neededDown20;
+                    const paymentAt20 = monthlyPayment(loanAt20, MORTGAGE_RATE, MORTGAGE_TERM) + TAX_INSURANCE + 200;
+                    statusEl.textContent = 'After ' + years + ' years, the market-rate home costs ' + fmt(futurePrice) +
+                        '. Even with 20% down, the monthly payment is ' + fmt(paymentAt20) +
+                        ' — above your qualifying limit of ' + fmt(renter.maxHousingPayment) + '.';
+                }
+            }
+
+            // Gap
+            const cltEq = eq.totalEquity;
+            const renterEq = renter.purchaseYear !== null ? renter.renterEquity : 0;
+            const gap = cltEq - renterEq;
+            document.getElementById('s5Gap').textContent = fmt(Math.abs(gap)) + (gap >= 0 ? ' ahead' : ' behind');
+
+            if (renter.purchaseYear !== null) {
+                document.getElementById('s5GapDetail').textContent =
+                    'The CLT buyer has ' + fmt(cltEq) + ' in equity. The market-rate buyer (year ' +
+                    renter.purchaseYear + ') has ' + fmt(renterEq) + ' — but paid more each month.';
+            } else {
+                document.getElementById('s5GapDetail').textContent =
+                    'The CLT buyer owns a home with ' + fmt(cltEq) + ' in equity. The renter paid ' +
+                    fmt(renter.totalRentPaid) + ' in rent with no ownership stake.';
+            }
+
+            drawChart(clt.equityByYear, renter.savingsByYear, years);
+        }
+
+        // --- Slider displays ---
+        document.getElementById('s1Income').oninput = function() {
+            document.getElementById('s1IncomeDisplay').textContent = fmt(parseInt(this.value));
+        };
+        document.getElementById('s1HHSize').onchange = function() {
+            updateAMIMarkers();
+        };
+        document.getElementById('s2Rent').oninput = function() {
+            document.getElementById('s2RentDisplay').textContent = fmt(parseInt(this.value)) + '/mo';
+        };
+        document.getElementById('s5YearsSlider').oninput = function() {
+            updateStep5();
+        };
+
+        // Resize
+        window.addEventListener('resize', function() {
+            if (currentStep === 5) updateStep5();
+        });
+    </script>
+</body>
+</html>
