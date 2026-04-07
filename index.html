@@ -1214,6 +1214,20 @@
             drawChart(clt.equityByYear, renter.savingsByYear, years);
         }
 
+        // --- Assumptions toggle ---
+        function toggleAssumptions() {
+            const panel = document.getElementById('assumptionsPanel');
+            const btn = document.querySelector('.assumptions-toggle');
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
+                btn.innerHTML = 'How this works, assumptions, and data sources &#9662;';
+            } else {
+                panel.style.display = 'block';
+                btn.innerHTML = 'How this works, assumptions, and data sources &#9652;';
+                panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
         // --- Slider displays ---
         document.getElementById('s1Income').oninput = function() {
             document.getElementById('s1IncomeDisplay').textContent = fmt(parseInt(this.value));
